@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>微信id转好友二维码</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="keywords"  content="微信id,wxid,好友,二维码,在线转换" />
+		<meta name="description" content="微信id(wxid)生成好友链接二维码" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+		<script type="text/javascript" src="qrcode.min.js"></script>
+		<style>
+			body{
+			background-color:black;
+			background-image:
+			radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+			radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+			radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+			radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+			background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+			background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+		}
+		.child {
+		    width: 50%;
+		    padding: 10px;
+		    position: absolute;
+		    top: 20%;
+		    left: 30%;
+		    margin: -50px 0 0 -110px;
+		    color: #fff;
+		}
+	</style>
+	</head>
+	<body>
+		<div class="child">
+			<p style="font-size: 24px;text-align: center;">根据微信id(wxid)生成好友链接二维码</p>
+			<input id="text" type="text" value="wxid_123456789" placeholder="输入wxid,如wxid_123456789" style="width:80%;height:30px;vertical-align:middle;" />
+			<button onclick="makeCode" style="width: 15%;height: 35px;">生成</button>
+			<div id="qrcode" style="width:250px; height:250px; margin-top:5%;margin-left: 35%;"></div>
+
+
+		</div>
+		<script type="text/javascript">
+			var qrcode = new QRCode(document.getElementById("qrcode"), {
+				width: 250,
+				height: 250
+			});
+
+			var inputField = document.getElementById("text");
+
+			function makeCode() {
+				if (!inputField.value) {
+					inputField.focus();
+					return;
+				}
+
+				qrcode.makeCode("weixin://contacts/profile/"+inputField.value);
+			}
+
+			makeCode();
+
+			inputField.addEventListener("keydown", (e) => {
+				if (e.keyCode == 13) {
+					makeCode();
+				}
+			});
+			inputField.addEventListener("blur", makeCode);
+		</script>
+	</body>
